@@ -97,7 +97,7 @@
                     <div class="box" style="width: 25px; height: 25px">
 
                         <img class="profile"
-                             src="{% get_media_prefix %}{{ user.profile_image }}" alt="text">
+                             src="{% get_media_prefix %}{{ user_session.profile_image }}" alt="text">
 
                     </div>
                 </a>
@@ -196,14 +196,14 @@
         <div style="display: flex;flex-direction: row; align-items: center; margin: 20px">
             <div class="box" style="width: 70px; height: 70px">
                 <img class="profile"
-                     src="{% get_media_prefix %}{{ user.profile_image }}">
+                     src="{% get_media_prefix %}{{ user_session.profile_image }}">
             </div>
             <div style="margin-left: 10px; text-align: left">
                 <div style="font-weight: bold">
-                    {{ user.nickname }}
+                    {{ user_session.nickname }}
                 </div>
                 <div style="color: gray">
-                    {{ user.name }}
+                    {{ user_session.name }}
                 </div>
             </div>
         </div>
@@ -482,7 +482,7 @@
                 console.log("성공");
                 alert("댓글 성공");
                 // 비동기식 댓글 업로드를 위한 구현
-                $("#reply_list_" + feed_id).append("<div style='margin: 0 20px;text-align: left;font-size: 14px'><b>{{ user.nickname }}</b> " + reply_content + "</div>")
+                $("#reply_list_" + feed_id).append("<div style='margin: 0 20px;text-align: left;font-size: 14px'><b>{{ user_session.nickname }}</b> " + reply_content + "</div>")
             },
             error: function (request, status, error) {
                 console.log("에러");
