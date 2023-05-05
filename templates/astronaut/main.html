@@ -195,12 +195,13 @@
         <!-- 내 프로필 표시 -->
         <div style="display: flex;flex-direction: row; align-items: center; margin: 20px">
             <div class="box" style="width: 70px; height: 70px">
-                <img class="profile"
-                     src="{% get_media_prefix %}{{ user_session.profile_image }}">
+                <!--안치윤 : 클릭시 내 프로필 이동 수정-->
+                <a href="/content/profile"> <img class="profile"
+                                                src="{% get_media_prefix %}{{ user_session.profile_image }}"></a>
             </div>
             <div style="margin-left: 10px; text-align: left">
                 <div style="font-weight: bold">
-                    {{ user_session.nickname }}
+                    <a href="/content/profile" style="color: black; text-decoration: none">{{ user_session.nickname }}</a>
                 </div>
                 <div style="color: gray">
                     {{ user_session.name }}
