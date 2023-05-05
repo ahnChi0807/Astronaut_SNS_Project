@@ -145,17 +145,17 @@
     <div style="display: flex; flex-direction: row; justify-content: center; align-items: center; margin: 20px">
         <!-- 내가 작성한 게시글들을 보기 위한 버튼 -->
         <div id="button_feed_list"
-             style="cursor: pointer;margin: 0 30px;display: flex; flex-direction: row;align-items: center"><span
+             style="cursor: pointer;margin: 0 30px;display: flex; flex-direction: row;align-items: center; border-bottom-style: solid; border-bottom-width: 1px;" ><span
                 class="material-icons-outlined">grid_on</span>내 게시물
         </div>
         <!-- 내가 좋아요한 게시글들을 보기 위한 버튼 -->
         <div id="button_feed_like_list"
-             style="cursor: pointer;margin: 0 30px;display: flex; flex-direction: row;align-items: center"><span
+             style="cursor: pointer;margin: 0 30px;display: flex; flex-direction: row;align-items: center; border-bottom-width: 1px;"><span
                 class="material-icons-outlined">favorite_border</span>좋아요
         </div>
         <!-- 내가 북마크한 게시글들을 보기 위한 버튼 -->
         <div id="button_feed_bookmark_list"
-             style="cursor: pointer;margin: 0 30px;display: flex; flex-direction: row;align-items: center"><span
+             style="cursor: pointer;margin: 0 30px;display: flex; flex-direction: row;align-items: center ; border-bottom-width: 1px;"><span
                 class="material-icons-outlined">bookmark_border</span>북마크
         </div>
     </div>
@@ -266,7 +266,18 @@
 <!-- 자바 스크립트 영역 이벤트처리나 서버로 데이터를 전달하는 과정(ajax) -->
 <script>
     // 내가 쓴 게시물 이벤트 처리
+    // + 정유진: 버튼 클릭 시 활성화된 버튼 표시
     $("#button_feed_list").click(function () {
+        $('#button_feed_list').css({
+            borderBottomStyle : "solid"
+        });
+        $('#button_feed_like_list').css({
+            borderBottomStyle : "none"
+        });
+        $('#button_feed_bookmark_list').css({
+            borderBottomStyle : "none"
+        });
+
         $('#feed_list').css({
             display: 'flex'
         });
@@ -279,7 +290,18 @@
     });
 
     // 내가 좋아요한 게시물 이벤트 처리
+    // + 정유진: 버튼 클릭 시 활성화된 버튼 표시
     $("#button_feed_like_list").click(function () {
+        $('#button_feed_list').css({
+            borderBottomStyle : "none"
+        });
+        $('#button_feed_like_list').css({
+            borderBottomStyle : "solid"
+        });
+        $('#button_feed_bookmark_list').css({
+            borderBottomStyle : "none"
+        });
+
         $('#feed_list').css({
             display: 'none'
         });
@@ -292,7 +314,18 @@
     });
 
     // 내가 북마크한 게시물 이벤트 처리
+    // + 정유진: 버튼 클릭 시 활성화된 버튼 표시
     $("#button_feed_bookmark_list").click(function () {
+        $('#button_feed_list').css({
+            borderBottomStyle : "none"
+        });
+        $('#button_feed_like_list').css({
+            borderBottomStyle : "none"
+        });
+        $('#button_feed_bookmark_list').css({
+            borderBottomStyle : "solid"
+        });
+
         $('#feed_list').css({
             display: 'none'
         });
