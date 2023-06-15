@@ -300,14 +300,14 @@
 </div>
 
 <!-- 사진 업로드 창 첫번째 모달 -->
+<!-- 사진 업로드 창 첫번째 모달 -->
 <div id="first_modal" class="modal_overlay">
     <!-- 모달창 -->
     <div class="modal_window">
         <!-- 모달창 상단바 -->
         <div class="feed_upload_modal_bar">
-            <!-- 공백 -->
             <div>
-                <p class="space"></p>
+                <div id="modal_next_button">다음</div>
             </div>
             <!-- 설명란 -->
             <div>
@@ -322,18 +322,34 @@
         <!-- 이미지를 드래그 앤 드롭할 공간 -->
         <div class="img_upload_space">
             <!--설명란-->
-            <img style="width: 100px; height: 100px"
+            <img style="width: 100px; height: 100px" class="feed_modal_area_upload_img"
                  src="https://postfiles.pstatic.net/MjAyMzA2MDdfMTQ5/MDAxNjg2MDcyNjc2MTk5.kQ06b73EUSfcUf1MYitpo1G_ROPvHbLujMhgqfvbws4g.cGAAR3fMuv49g1R6afB1rBxxZyBbRcbQRksW_nT3yUUg.PNG.roedeer0807/imageuplod-removebg-preview.png?type=w966">
             <div class="drag_here_image">
                 이미지를 여기에 드롭 하거나 사진 추가 버튼을 클릭 하세요
             </div>
-
+            <div class="feed_image_area_img_control_btns_parent">
+                <div class="feed_image_area_img_control_btns">
+                    <div class="feed_modal_area_images_btn_dele">
+                        삭제
+                    </div>
+                    <div class="feed_modal_area_images_btn">
+                        <div class="feed_modal_feed_image_before material-symbols-outlined"
+                             id="feed_modal_feed_image_before_F">
+                            arrow_back_ios
+                        </div>
+                        <div class="feed_modal_feed_image_next material-symbols-outlined"
+                             id="feed_modal_feed_image_next_F">
+                            arrow_forward_ios
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!--사진 찾는 파일 시스템을 여는 버튼-->
             <button id="image_upload_btn" type="button" class="btn btn-primary">
                 사진 추가
             </button>
             <!--파일 입력 폼-->
-            <input type="file" id="input_image_upload" onchange="image_upload();"/>
+            <input multiple="multiple" type="file" id="input_image_upload" onchange="image_upload();"/>
         </div>
     </div>
 </div>
@@ -344,14 +360,15 @@
     <div class="modal_window">
         <!-- 모달창 상단바 -->
         <div class="feed_upload_modal_bar">
-            <!-- 공백 -->
-            <div>
-                <p class="space"></p>
+
+            <div id="modal_before_button">
+                <p>이전</p>
             </div>
             <!-- 설명란 -->
             <div>
                 <b>새로운 피드 생성</b>
             </div>
+
             <!-- 모달창 닫기 버튼 -->
             <div>
                 <span id="modal_close_button" class="modal_close material-icons-outlined">close</span>
@@ -361,6 +378,16 @@
         <div class="feed_image_text_modal">
             <!-- 이미지 영역 -->
             <div class="img_upload_space">
+                <div class="feed_modal_area_images_btn">
+                    <div id="feed_modal_feed_image_before_btn"
+                         class="feed_modal_feed_image_before material-symbols-outlined">
+                        arrow_back_ios
+                    </div>
+                    <div id="feed_modal_feed_image_next_btn"
+                         class="feed_modal_feed_image_next material-symbols-outlined">
+                        arrow_forward_ios
+                    </div>
+                </div>
             </div>
             <!-- 글 영역 -->
             <div class="modal_text_area">

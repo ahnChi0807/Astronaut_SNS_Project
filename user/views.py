@@ -6,7 +6,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from Astronaut.settings import MEDIA_ROOT
-from content.models import Feed, Reply, Hashtag, Follow, Like, Bookmark, Chat, Alert
+from content.models import Feed, Reply, Hashtag, Follow, Like, Bookmark, Image, Chat, Alert
 from .models import User
 from django.contrib.auth.hashers import make_password
 
@@ -156,6 +156,9 @@ class RemoveProfile(APIView):
             likes.delete()
             bookmark = Bookmark.objects.filter(feed_id=feeds.id)
             bookmark.delete()
+            # 이미지 삭제 추가
+            images = Image.objects.filter(feed_id=feeds.id)
+            images.delete()
 
         # 해당 유저가 다른 피드에 좋아요, 북마크한 정보를 삭제
         likes = Like.objects.filter(email=email)
@@ -257,7 +260,6 @@ class UpdateEmail(APIView):
             bookmark = Bookmark.objects.filter(email=user_email)
             follower = Follow.objects.filter(follower=user_email)
             following = Follow.objects.filter(following=user_email)
-
             # 각 객체의 이메일을 수정할 이메일로 변경
             user.email = email
             request.session['email'] = email
@@ -308,13 +310,15 @@ class Profile(APIView):
         # 사용자가 작성한 각 게시물들의 좋아요와 댓글 수를 조회할 때 필요한 리스트를 구하는 과정
         feed_count_list = []
         for feed in feed_list:
+            image = Image.objects.filter(feed_id=feed.id).first()
             # 좋아요 수
             like_count = Like.objects.filter(feed_id=feed.id).count()
             # 댓글 수
             reply_count = Reply.objects.filter(feed_id=feed.id).count()
             feed_count_list.append(dict(id=feed.id,
                                         like_count=like_count,
-                                        reply_count=reply_count))
+                                        reply_count=reply_count,
+                                        image=image))
 
         # 사용자가 좋아요한 각 게시물들의 좋아요와 댓글 수를 조회할 때 필요한 리스트를 구하는 과정
         like_count_list = []
