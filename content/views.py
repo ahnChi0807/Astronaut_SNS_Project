@@ -49,6 +49,7 @@ class Main(APIView):
             # 팔로잉 하고있는 사람들이 팔로잉 하고 있는 사람들(대표로 2명만 뽑음)
             user_follower = Follow.objects.filter(follower=user_following.following).order_by('-id')[:2]
             for user_follower in user_follower:
+                # 이미 팔로잉 하고있는 중복, 자기자신 제외
                 if user_follower.following != email and user_follower.following not in added_followers and user_follower.following not in user_followings:
                     Recommend_Followers = User.objects.filter(email=user_follower.following).first()
                     Recommend_Following = User.objects.filter(email=user_follower.follower).first()
