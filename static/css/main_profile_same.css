@@ -484,7 +484,6 @@
 
 .feed_modal_feed_image_before,
 .feed_modal_feed_image_next {
-    display: none;
     margin: 0;
     width: 25px;
     background-color: rgba(0, 0, 0, 0.1); /*까만색(0,0,0) 80% 불투명도*/
