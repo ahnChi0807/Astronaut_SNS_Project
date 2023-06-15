@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     {% load static %}
     <!-- css 분리 -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/allsame.css' %}?ver=5">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/allsame.css' %}?ver=11">
     <!--  jQuery를 사용하기 위한 선언  -->
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
@@ -30,7 +30,7 @@
             <!-- 나한테 온 채팅일 경우 왼쪽으로 출력 보낸 자의 프로필 사진까지 출력  -->
         {% else %}
             <div class="receive_chat_area">
-                <div class="chat_profile">
+                <div class="profile_box">
                     <img class="profile movetoprofile"
                          src="{% get_media_prefix %}{{ receive_chat_user.profile_image }}"
                          id="{{ receive_chat_user.nickname }}" alt="text">
@@ -52,6 +52,6 @@
         전송
     </div>
 </div>
-<script src="{% static 'js/allsame.js' %}?ver=4"></script>
+<script src="{% static 'js/allsame.js' %}?ver=91"></script>
 </body>
 </html>

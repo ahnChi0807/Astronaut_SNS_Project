@@ -151,43 +151,13 @@
                             </li>
                             <li>
                                 <!-- 피드 수정 -->
-                                <!-- 유재우 id 추가(feed.id_update_feed_btn으로 설정) 피드 수정에서 이미지 추가시 쓰기 위해 추가함 -->
-                                <div feed_id="{{ feed.id }}" id="{{ feed.id }}_update_feed_btn"
-                                     class="update_feed dropdown-item" href="#"> 수정
-                                </div>
+                                <div feed_id="{{ feed.id }}" class="update_feed dropdown-item" href="#"> 수정</div>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <!--게시글 이미지-->
-                <div class="image-slider-container">
-                    <div class="image-slider">
-                        {% for image in feed.images_list %}
-                            <div class="slide">
-                                <img class="feed_writer_image"
-                                     style="{% if image.count == 0 %}display: flex; {% else %}display: none{% endif %} "
-                                     src="{% get_media_prefix %}{{ image.image }}" alt="text"
-                                     id="{{ feed.id }}{{ image.count }}_img">
-                                {% if feed.image_count != 1 %}
-                                    <div class="feed_image_area_btns">
-                                        <span class="prev_image_button material-symbols-outlined"
-                                              feed_id="{{ feed.id }}{{ image.count }}{{ feed.image_count }}"
-                                              style="left: 5px;{% if image.count == 0 %}display: flex; {% else %}display: none{% endif %}"
-                                              id="{{ feed.id }}{{ image.count }}_prev_button">arrow_back_ios</span>
-                                        <span class="next_image_button material-symbols-outlined"
-                                              feed_id="{{ feed.id }}{{ image.count }}{{ feed.image_count }}"
-                                              style="{% if image.count == 0 %}display: flex; {% else %}display: none{% endif %}"
-                                              id="{{ feed.id }}{{ image.count }}_next_button">arrow_forward_ios</span>
-                                    </div>
-                                    <div style="{% if image.count == 0 %}display: flex; {% else %}display: none{% endif %}"
-                                         id="{{ feed.id }}{{ image.count }}_now_count"
-                                         class="now_img_count">{{ image.now_count }}/{{ feed.image_count }}</div>
-                                {% endif %}
-                            </div>
-
-                        {% endfor %}
-                    </div>
-                </div>
+                <div><img class="feed_writer_image" src="{% get_media_prefix %}{{ feed.image }}" alt="text"></div>
                 <!--좋아요와 북마크 영역 -->
                 <div class="like_bookmark">
                     <!-- 좋아요 -->
@@ -365,24 +335,15 @@
                 <a class="follow_recommend_list_all" href="#">모두보기</a>
             </div>
         </div>
-        {% for Recommend_Followers_list in Recommend_Followers_list %}
-            <!-- 팔로우 추천인 프로필 -->
-            <div class="follow_recommend_profile_area">
-                <div class="follow_recommend_profile">
-                    <div id="f_recommender_profile" class="profile_box">
-                        <img class="profile"
-                             src="{% get_media_prefix %}{{ Recommend_Followers_list.profile_image }}"
-                             alt="text"></a>
-                    </div>
-                    <div class="follow_profile_nickname_explain">
-                        <div class="follow_profile_nickname">
-                            {{ Recommend_Followers_list.nicname }}
-                        </div>
-                        <div class="follow_profile_explain">
-                            {{ Recommend_Followers_list.Recommend_nicname }}님이 팔로잉 중
-                        </div>
-                    </div>
+        <!-- 팔로우 추천인 프로필 -->
+        <div class="follow_recommend_profile_area">
+            <div class="follow_recommend_profile">
+                <div id="f_recommender_profile" class="profile_box">
+                    <img class="profile"
+                         src="http://file3.instiz.net/data/file3/2021/05/31/e/b/8/eb8d9ad2d779ca2a0b7acc2b67694a23.png"
+                         alt="text">
                 </div>
+<<<<<<< HEAD
 
 
                 <div>
@@ -392,9 +353,22 @@
                        user_email="{{ user_session.email }}">{% if Recommend_Followers_list.now_following == 1 %}
                         맞{% endif %}
                         팔로우</a>
+=======
+                <div class="follow_profile_nickname_explain">
+                    <div class="follow_profile_nickname">
+                        aaaaaaaaaa
+                    </div>
+                    <div class="follow_profile_explain">
+                        나랑 같이 치킨 먹음
+                    </div>
+>>>>>>> bdb127c12243d71aadc0f3d95998a01e001628d2
                 </div>
             </div>
-        {% endfor %}
+
+            <div>
+                <a class="follow_button" href="#">팔로우</a>
+            </div>
+        </div>
         <!-- 도움말 -->
         <div class="Astro_explain1"> 소개 도움말 홍보센터 API <br> 개인정보처리방침 약관 위치
             인기 계정 해시태그 언어
@@ -410,8 +384,9 @@
     <div class="modal_window">
         <!-- 모달창 상단바 -->
         <div class="feed_upload_modal_bar">
+            <!-- 공백 -->
             <div>
-                <div id="modal_next_button">다음</div>
+                <p class="space"></p>
             </div>
             <!-- 설명란 -->
             <div>
@@ -425,37 +400,19 @@
 
         <!-- 이미지를 드래그 앤 드롭할 공간 -->
         <div class="img_upload_space">
-            <div class="feed_modal_area_images_btn_dele">
-                    삭제
-                </div>
             <!--설명란-->
-            <img style="width: 100px; height: 100px" class="feed_modal_area_upload_img"
+            <img style="width: 100px; height: 100px"
                  src="https://postfiles.pstatic.net/MjAyMzA2MDdfMTQ5/MDAxNjg2MDcyNjc2MTk5.kQ06b73EUSfcUf1MYitpo1G_ROPvHbLujMhgqfvbws4g.cGAAR3fMuv49g1R6afB1rBxxZyBbRcbQRksW_nT3yUUg.PNG.roedeer0807/imageuplod-removebg-preview.png?type=w966">
             <div class="drag_here_image">
                 이미지를 여기에 드롭 하거나 사진 추가 버튼을 클릭 하세요
             </div>
-            <div class="feed_image_area_img_control_btns_parent">
 
-                <div class="feed_image_area_img_control_btns">
-
-                    <div class="feed_modal_area_images_btn">
-                        <div class="feed_modal_feed_image_before material-symbols-outlined"
-                             style="left: 5px;" id="feed_modal_feed_image_before_F">
-                            arrow_back_ios
-                        </div>
-                        <div class="feed_modal_feed_image_next material-symbols-outlined"
-                             id="feed_modal_feed_image_next_F">
-                            arrow_forward_ios
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!--사진 찾는 파일 시스템을 여는 버튼-->
             <button id="image_upload_btn" type="button" class="btn btn-primary">
                 사진 추가
             </button>
             <!--파일 입력 폼-->
-            <input multiple="multiple" type="file" id="input_image_upload" onchange="image_upload();"/>
+            <input type="file" id="input_image_upload" onchange="image_upload();"/>
         </div>
     </div>
 </div>
@@ -466,15 +423,14 @@
     <div class="modal_window">
         <!-- 모달창 상단바 -->
         <div class="feed_upload_modal_bar">
-
-            <div id="modal_before_button">
-                <p>이전</p>
+            <!-- 공백 -->
+            <div>
+                <p class="space"></p>
             </div>
             <!-- 설명란 -->
             <div>
                 <b>새로운 피드 생성</b>
             </div>
-
             <!-- 모달창 닫기 버튼 -->
             <div>
                 <span id="modal_close_button" class="modal_close material-icons-outlined">close</span>
@@ -484,16 +440,6 @@
         <div class="feed_image_text_modal">
             <!-- 이미지 영역 -->
             <div class="img_upload_space">
-                <div class="feed_modal_area_images_btn">
-                    <div id="feed_modal_feed_image_before_btn"
-                         class="feed_modal_feed_image_before material-symbols-outlined">
-                        arrow_back_ios
-                    </div>
-                    <div id="feed_modal_feed_image_next_btn"
-                         class="feed_modal_feed_image_next material-symbols-outlined">
-                        arrow_forward_ios
-                    </div>
-                </div>
             </div>
             <!-- 글 영역 -->
             <div class="modal_text_area">
@@ -548,31 +494,13 @@
             </div>
             <!-- 모달창 닫기 버튼 -->
             <div>
-                <span id="modal_close_button" class="update_feed_modal_close material-icons-outlined">close</span>
+                <span id="modal_close_button" class="modal_close material-icons-outlined">close</span>
             </div>
         </div>
         <!-- 이미지를 드래그 앤 드롭할 공간 -->
         <div class="feed_image_text_modal">
             <!-- 이미지 영역 -->
             <div id="update_feed_modal_image">
-                <div class="update_feed_modal_image_btns_parent">
-                    <div class="update_feed_modal_image_btns">
-                        <div class="update_feed_modal_image_file_btn">
-                            <div class="update_feed_modal_image_update">추가</div>
-                            <input multiple="multiple" type="file" id="update_feed_modal_input_image_upload"
-                                   onchange="image_update();"/>
-                            <div class="update_feed_modal_feed_image_dele"> 삭제</div>
-                        </div>
-                        <div class="update_feed_modal_image_LR_btns">
-                            <div class="update_feed_modal_feed_image_before material-symbols-outlined">
-                                arrow_back_ios
-                            </div>
-                            <div class="update_feed_modal_feed_image_next material-symbols-outlined">
-                                arrow_forward_ios
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!-- 텍스트 영역 -->
             <div class="modal_text_area">
@@ -775,7 +703,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 -->
 <script src="{% static 'js/main.js' %}?ver=1"></script>
-<script src="{% static 'js/main_profile_same.js' %}?ver=2"></script>
-<script src="{% static 'js/allsame.js' %}?ver=5"></script>
+<script src="{% static 'js/main_profile_same.js' %}?ver=3"></script>
+<script src="{% static 'js/allsame.js' %}?ver=9711"></script>
 </body>
 </html>

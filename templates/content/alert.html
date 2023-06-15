@@ -19,7 +19,7 @@
             <div id="{{ index.alert_id }}" class="alert_list">
                 <!-- 유저 프로필 사진 영역 -->
                 <div class="alert_profile">
-                    <img class="profile movetoprofile" id="{{ index.alert_send_user.nickname }}"
+                    <img class="profile alertprofile_move" alert_id="{{ index.alert_send_user.nickname }}"
                          src="{% get_media_prefix %}{{ index.alert_send_user.profile_image }}" alt="text">
                 </div>
                 <!-- 알림 내용 영역 -->
@@ -41,7 +41,7 @@
             <div id="{{ index.alert_id }}" class="alert_list">
                 <!-- 유저 프로필 사진 영역 -->
                 <div class="alert_profile">
-                    <img class="profile movetoprofile" id="{{ index.alert_send_user.nickname }}"
+                    <img class="profile alertprofile_move" alert_id="{{ index.alert_send_user.nickname }}"
                          src="{% get_media_prefix %}{{ index.alert_send_user.profile_image }}" alt="text">
                 </div>
                 <!-- 알림 내용 영역  -->
@@ -64,11 +64,11 @@
             <div id="{{ index.alert_id }}" class="alert_list follow_alert">
                 <!-- 유저 프로필 사진 영역 -->
                 <div class="alert_profile">
-                    <img class="profile movetoprofile" id="{{ index.alert_send_user.nickname }}"
+                    <img class="profile alertprofile_move" alert_id="{{ index.alert_send_user.nickname }}"
                          src="{% get_media_prefix %}{{ index.alert_send_user.profile_image }}" alt="text">
                 </div>
                 <!-- 알림 내용 영역 -->
-                <div class="follow_alert_content_area movetoprofile" id="{{ index.alert_send_user.nickname }}">
+                <div class="follow_alert_content_area alertprofile_move" alert_id="{{ index.alert_send_user.nickname }}">
                     <div><b>{{ index.alert_send_user.nickname }}</b> 님이 회원님을 팔로우 했습니다.</div>
                     <div class="alert_time">{{ index.alert_time }}</div>
                 </div>
@@ -77,7 +77,7 @@
 
     {% endfor %}
 </div>
-<script src="{% static 'js/main_profile_same.js' %}?ver=1"></script>
-<script src="{% static 'js/allsame.js' %}?ver=2"></script>
+<script src="{% static 'js/main_profile_same.js' %}?ver=2"></script>
+<script src="{% static 'js/allsame.js' %}?ver=4"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from Astronaut.settings import MEDIA_ROOT
-from content.models import Feed, Reply, Hashtag, Follow, Like, Bookmark, Image, Chat, Alert
+from content.models import Feed, Reply, Hashtag, Follow, Like, Bookmark, Chat, Alert
 from .models import User
 from django.contrib.auth.hashers import make_password
 
@@ -156,9 +156,6 @@ class RemoveProfile(APIView):
             likes.delete()
             bookmark = Bookmark.objects.filter(feed_id=feeds.id)
             bookmark.delete()
-            # 이미지 삭제 추가
-            images = Image.objects.filter(feed_id=feeds.id)
-            images.delete()
 
         # 해당 유저가 다른 피드에 좋아요, 북마크한 정보를 삭제
         likes = Like.objects.filter(email=email)
@@ -260,6 +257,7 @@ class UpdateEmail(APIView):
             bookmark = Bookmark.objects.filter(email=user_email)
             follower = Follow.objects.filter(follower=user_email)
             following = Follow.objects.filter(following=user_email)
+
             # 각 객체의 이메일을 수정할 이메일로 변경
             user.email = email
             request.session['email'] = email
@@ -310,15 +308,13 @@ class Profile(APIView):
         # 사용자가 작성한 각 게시물들의 좋아요와 댓글 수를 조회할 때 필요한 리스트를 구하는 과정
         feed_count_list = []
         for feed in feed_list:
-            image = Image.objects.filter(feed_id=feed.id).first()
             # 좋아요 수
             like_count = Like.objects.filter(feed_id=feed.id).count()
             # 댓글 수
             reply_count = Reply.objects.filter(feed_id=feed.id).count()
             feed_count_list.append(dict(id=feed.id,
                                         like_count=like_count,
-                                        reply_count=reply_count,
-                                        image=image))
+                                        reply_count=reply_count))
 
         # 사용자가 좋아요한 각 게시물들의 좋아요와 댓글 수를 조회할 때 필요한 리스트를 구하는 과정
         like_count_list = []
@@ -363,6 +359,7 @@ class ReplyProfile(APIView):
     def get(self, request):
         # 서버로 전달된 사용자의 닉네임을 받음
         nickname = request.GET.get('user_nickname')
+        print(nickname)
 
         # 현재세션 정보를 받아옴. (네비바의 본인 프로필 정보를 위함)
         email_session = request.session.get('email', None)
@@ -380,8 +377,11 @@ class ReplyProfile(APIView):
 
         # 전달된 닉네임을 통해서 프로필로 이동할 유저의 객체를 뽑음
         user = User.objects.filter(nickname=nickname).first()
+        if user is None:
+            return render(request, "astronaut/main.html")
         # 유저의 객체에서 이메일을 구함
         email = user.email
+
 
         # 사용자가 작성한 피드 수 TODO
         user_feed_count = Feed.objects.filter(email=email).count()
