@@ -363,6 +363,7 @@ class ReplyProfile(APIView):
     def get(self, request):
         # 서버로 전달된 사용자의 닉네임을 받음
         nickname = request.GET.get('user_nickname')
+        print(nickname)
 
         # 현재세션 정보를 받아옴. (네비바의 본인 프로필 정보를 위함)
         email_session = request.session.get('email', None)
@@ -380,8 +381,11 @@ class ReplyProfile(APIView):
 
         # 전달된 닉네임을 통해서 프로필로 이동할 유저의 객체를 뽑음
         user = User.objects.filter(nickname=nickname).first()
+        if user is None:
+            return render(request, "astronaut/main.html")
         # 유저의 객체에서 이메일을 구함
         email = user.email
+
 
         # 사용자가 작성한 피드 수 TODO
         user_feed_count = Feed.objects.filter(email=email).count()

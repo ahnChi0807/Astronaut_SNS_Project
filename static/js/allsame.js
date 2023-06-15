@@ -150,7 +150,7 @@ $('#search_box').mousedown(function () {
 
 
 //채팅할 친구 목록 모달창 여는 이벤트 처리 ajax
-var ajax_call = function (url) {
+var ajax_call1 = function (url) {
     var request = $.ajax({
         url: url, // 요청할 url
         method: 'GET', // 요청 방식
@@ -162,17 +162,22 @@ var ajax_call = function (url) {
 
 // 채팅할 친구 목록 모달창 이벤트 처리 함수
 var open_article1 = function (url) {
-    ajax_call(url).done(function (text) { // ajax 요청이 완료된 경우
+    ajax_call1(url).done(function (text) { // ajax 요청이 완료된 경우
         document.querySelector('.chat_modal_user_area').innerHTML = text; // 채팅 유저 모달창 내용을 서버로부터 받은 내용으로 셋팅
-        document.getElementById('chat_user_modal_id').style.display = 'flex'; // 채팅 유저 목록 모달창을 flex로 설정하여 보여줌
         document.getElementById('chat_modal_id').style.display = 'none'; // 채팅 모달창을 none로 설정
-
+        var chatUserModal = document.getElementById('chat_user_modal_id');
+        // 토글 방식을 이용함 ( document.getElementById('').style.display = 'flex'; 가 이미 있는데 아래 코드를 작성하면 작동 x
+        if (chatUserModal.style.display === 'flex') {
+            chatUserModal.style.display = 'none';
+        } else {
+            chatUserModal.style.display = 'flex';
+        }
     });
 };
 
 //채팅창 여는 이벤트 처리 ajax
-var ajax_call = function (url, user_email) {
-
+var ajax_call2 = function (url, user_email) {
+    console.log(user_email)
     var request = $.ajax({
         url: url, // 요청할 자원
         method: 'GET', // 요청 방식
@@ -187,7 +192,7 @@ var ajax_call = function (url, user_email) {
 
 //채팅창 여는 이벤트 처리 함수
 var open_article2 = function (url, user_email) {
-    ajax_call(url, user_email).done(function (text) { // ajax 요청이 완료된 경우
+    ajax_call2(url, user_email).done(function (text) { // ajax 요청이 완료된 경우
         document.querySelector('.chat_modal_text_area').innerHTML = text; // 채팅 모달창 내용을 서버로부터 받은 내용으로 셋팅
         document.getElementById('chat_modal_id').style.display = 'flex'; // 채팅 모달창을 flex로 설정하여 보여줌
         document.getElementById('chat_user_modal_id').style.display = 'none'; // 채팅 유저 목록 모달창을 none로 설정
@@ -232,11 +237,9 @@ var open_article2 = function (url, user_email) {
                 method: "POST",
                 success: function (data) {
                     console.log("성공");
-                    // 채팅 비동기 전송을 위한 코드
+                    // 채팅 비동기 전송을 위한 코드 TODO help
                     $('.chat_modal_content_area').append("<div class='send_chat_area'>" +
-                        "<span class='send_chat_cont'>" +
                         "<span class='send_chat'>" + data.chat_content + "</span>" +
-                        "</span>" +
                         "</div>");
                     // 스크롤을 최하단으로 이동( 입력되고 스크롤을 아래로 이동해야 최하단으로 이동됩니다.)
                     $('.chat_modal_content_area').scrollTop($('.chat_modal_content_area')[0].scrollHeight);
@@ -344,7 +347,7 @@ $(".chat_modal_close").click(function () {
 });
 
 // 알림 목록 모달창 여는 이벤트 처리 ajax
-var ajax_call = function (url) {
+var ajax_call3 = function (url) {
     var request = $.ajax({
         url: url, // 요청할 url
         method: 'GET', // 요청 방식
@@ -356,21 +359,15 @@ var ajax_call = function (url) {
 
 // 알림 목록 모달창 이벤트 처리 함수
 var open_article3 = function (url) {
-    ajax_call(url).done(function (text) { // ajax 요청이 완료된 경우
+    ajax_call3(url).done(function (text) { // ajax 요청이 완료된 경우
         document.querySelector('.alert_list_modal_area').innerHTML = text; // 채팅 유저 모달창 내용을 서버로부터 받은 내용으로 셋팅
+        // 토글 방식으로 열고 닫음
         var alertModal = document.getElementById('alert_modal_id');
         if (alertModal.style.display === 'flex') {
             alertModal.style.display = 'none';
         } else {
             alertModal.style.display = 'flex';
         }
-
-        // 알람 화면에서 다른 사용자의 프로필 클릭시 해당 사용자의 프로필로 이동
-        $(".movetoprofile").click(function (event) {
-            let user_nickname = $(this).attr("id");
-            console.log(user_nickname);
-            location.href = "/user/reprofile?user_nickname=" + user_nickname;
-        });
 
         // 알람 확인시 알람 삭제 이벤트 처리
         $(".alert_list").click(function (event) {
@@ -622,6 +619,12 @@ var open_article3 = function (url) {
             });
         });
 
+        // 알람 화면에서 다른 사용자의 프로필 클릭시 해당 사용자의 프로필로 이동 (피드모달과 프로필 이동클래스명이 같아 오류)
+        $(".alertprofile_move").click(function (event) {
+            let user_nickname = $(this).attr("alert_id");
+            console.log(user_nickname);
+            location.href = "/user/reprofile?user_nickname=" + user_nickname;
+        });
     });
 };
 

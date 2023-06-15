@@ -799,3 +799,10 @@ function image_update(e) {
 $('.update_feed_modal_close').click(function () {
     location.reload()
 })
+
+// 팔로우 추천 모두보기 버튼 이벤트
+$('.follow_recommend_list_all').click(function (){
+    $('#followers_moadl').css({
+            "display": "flex"
+        })
+})

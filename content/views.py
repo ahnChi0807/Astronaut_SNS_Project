@@ -34,6 +34,7 @@ class Main(APIView):
         # 유재우 : 팔로우 추천을 위해 추가
         Recommend_Followers_list = []
         Recommend_Followers_count = []
+        Recommend_all_Followers_list = []
 
         now_following = 0
         added_followers = set()  # 중복 체크를 위한 집합
@@ -43,6 +44,7 @@ class Main(APIView):
         user_followings = []
         for user_followings_list in user_followings_list:
             user_followings.append(user_followings_list.following)
+
         for user_following in user_following:
             # 팔로잉 하고있는 사람들이 팔로잉 하고 있는 사람들(대표로 2명만 뽑음)
             user_follower = Follow.objects.filter(follower=user_following.following).order_by('-id')[:2]
@@ -797,7 +799,8 @@ class FollowerFeed(APIView):
 
         # 팔로우 스위치 버튼 url을 요청한 사용자에게 메인페이지와 각종 데이터를 전달
         return render(request, "astronaut/main.html",
-                      context=dict(feeds=feed_list, user_session=user_session, is_checked=is_checked, alert_exists=alert_exists))
+                      context=dict(feeds=feed_list, user_session=user_session, is_checked=is_checked,
+                                   alert_exists=alert_exists))
 
 
 # 피드 수정시 이전 정보를 수정창에 불러오는 클래스
@@ -873,4 +876,3 @@ class Updateimages(APIView):
             # 해시태그는 여러개라 반복문으로 테이블 튜플을 생성 ( 해시태그 리스트는 리스트 형태 )
 
         return Response(status=200)
-

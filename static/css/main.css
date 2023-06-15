@@ -573,3 +573,12 @@
     border: black;
     background-color: rgba(0, 0, 0, 0.2); /*까만색(0,0,0) 80% 불투명도*/
 }
+
+.followers_moadl{
+    display: none;
+    border-top: none;
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    border-bottom-left-radius: 10px;
+}
