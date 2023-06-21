@@ -179,7 +179,7 @@ $(".upload_reply").click(function (event) {
                     },
                     complete: function () {
                         console.log("완료");
-                        location.replace("/main");
+                        location.reload()
                     }
                 });
             })
@@ -281,7 +281,7 @@ $('.remove_feed').click(function (event) {
         },
         complete: function () {
             console.log("완료");
-            location.replace("/main");
+            location.reload()
         }
     });
 })
@@ -307,7 +307,7 @@ $('.remove_reply').click(function (event) {
         },
         complete: function () {
             console.log("완료");
-            location.replace("/main");
+            location.reload()
         }
     });
 })
@@ -555,7 +555,7 @@ $('.update_replys').click(function (event) {
         },
         complete: function () {
             console.log("완료");
-            location.replace("/main");
+            location.reload()
         }
     });
 });

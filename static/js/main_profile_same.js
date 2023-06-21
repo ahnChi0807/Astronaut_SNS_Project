@@ -579,16 +579,10 @@ function uploadFiles(e) {
             return;
         }
     }
-<<<<<<< HEAD
-    var input = document.getElementById('input_image_upload');
-    input.value = null;
-=======
-
     // 파일 업로드 인풋태그 초기화
     var input = document.getElementById('input_image_upload');
     input.value = null;
 
->>>>>>> 87a1a2a26197278d8e3c3efa88ce2841746d8d9e
     if (files.length != 0) {
         //유재우 : 파일 업로드 버튼 색 및 투명도 변경
         $('#image_upload_btn').css({
