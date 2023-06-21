@@ -74,24 +74,24 @@ $(".feed_modal").click(function () {
             if (feed_images.length >= 2) {
                 $("#feed_modal_image").append('' +
 
-                '<div class="feed_image_area_img_control_btns_parent feed_modal_img_control_btns_area">' +
-                '   <div class="feed_image_area_img_control_btns" style="display: flex;justify-content: space-between;">' +
-                '       <!-- 다음 버튼 이전 버튼 영역 -->' +
-                '       <div class="feed_modal_area_images_btn" style="display: flex;">' +
-                '       <!-- 이전 버튼-->' +
-                '           <div class="feed_modal_feed_image_before material-symbols-outlined img_previous_btn"' +
-                '               id="feed_modal_feed_image_before_F">' +
-                '               arrow_back_ios' +
-                '           </div>' +
-                '           <!-- 이전 버튼-->' +
-                '           <div class="feed_modal_feed_image_next material-symbols-outlined"' +
-                '               id="feed_modal_feed_image_next_F">' +
-                '               arrow_forward_ios' +
-                '           </div>' +
-                '       </div>' +
-                '   </div>' +
-                '</div>');
-                $("#feed_modal_image").append('<div id="feed_modal_image_current_number" class="now_img_count" style="display: flex;" className="now_img_count">'+ (now_img_count+1) +'/'+ feed_images.length +'</div>')
+                    '<div class="feed_image_area_img_control_btns_parent feed_modal_img_control_btns_area">' +
+                    '   <div class="feed_image_area_img_control_btns" style="display: flex;justify-content: space-between;">' +
+                    '       <!-- 다음 버튼 이전 버튼 영역 -->' +
+                    '       <div class="feed_modal_area_images_btn" style="display: flex;">' +
+                    '       <!-- 이전 버튼-->' +
+                    '           <div class="feed_modal_feed_image_before material-symbols-outlined img_previous_btn"' +
+                    '               id="feed_modal_feed_image_before_F">' +
+                    '               arrow_back_ios' +
+                    '           </div>' +
+                    '           <!-- 이전 버튼-->' +
+                    '           <div class="feed_modal_feed_image_next material-symbols-outlined"' +
+                    '               id="feed_modal_feed_image_next_F">' +
+                    '               arrow_forward_ios' +
+                    '           </div>' +
+                    '       </div>' +
+                    '   </div>' +
+                    '</div>');
+                $("#feed_modal_image").append('<div id="feed_modal_image_current_number" class="now_img_count" style="display: flex;" className="now_img_count">' + (now_img_count + 1) + '/' + feed_images.length + '</div>')
 
             }
 
@@ -101,11 +101,11 @@ $(".feed_modal").click(function () {
                     $('#feed_modal_image_current').attr('src', '/media/' + feed_images[feed_images.length - 1].image);
                     now_img_count = feed_images.length - 1
 
-                    $('#feed_modal_image_current_number').html((now_img_count+1) + '/' + feed_images.length)
+                    $('#feed_modal_image_current_number').html((now_img_count + 1) + '/' + feed_images.length)
                 } else {
                     $('#feed_modal_image_current').attr('src', '/media/' + feed_images[now_img_count - 1].image);
                     now_img_count--
-                    $('#feed_modal_image_current_number').html((now_img_count+1) + '/' + feed_images.length)
+                    $('#feed_modal_image_current_number').html((now_img_count + 1) + '/' + feed_images.length)
 
                 }
             });
@@ -114,11 +114,11 @@ $(".feed_modal").click(function () {
                 if (now_img_count == feed_images.length - 1) {
                     $('#feed_modal_image_current').attr('src', '/media/' + feed_images[0].image);
                     now_img_count = 0
-                    $('#feed_modal_image_current_number').html((now_img_count+1) + '/' + feed_images.length)
+                    $('#feed_modal_image_current_number').html((now_img_count + 1) + '/' + feed_images.length)
                 } else {
                     $('#feed_modal_image_current').attr('src', '/media/' + feed_images[now_img_count + 1].image);
                     now_img_count++
-                    $('#feed_modal_image_current_number').html((now_img_count+1) + '/' + feed_images.length)
+                    $('#feed_modal_image_current_number').html((now_img_count + 1) + '/' + feed_images.length)
                 }
             });
 
@@ -571,7 +571,6 @@ function uploadFiles(e) {
     }
     console.log(newFiles);
 
-
     for (let i = 0; i < newFiles.length; i++) {
         if (newFiles[i].type.match(/image.*/)) {
             files.push(newFiles[i]); // 새로운 파일을 기존 파일 배열에 추가
@@ -580,8 +579,16 @@ function uploadFiles(e) {
             return;
         }
     }
+<<<<<<< HEAD
     var input = document.getElementById('input_image_upload');
     input.value = null;
+=======
+
+    // 파일 업로드 인풋태그 초기화
+    var input = document.getElementById('input_image_upload');
+    input.value = null;
+
+>>>>>>> 87a1a2a26197278d8e3c3efa88ce2841746d8d9e
     if (files.length != 0) {
         //유재우 : 파일 업로드 버튼 색 및 투명도 변경
         $('#image_upload_btn').css({
@@ -635,6 +642,7 @@ function uploadFiles(e) {
 
     }
 }
+
 // 다음사진 보기
 $('.feed_modal_feed_image_next').click(function () {
     files_Count++
