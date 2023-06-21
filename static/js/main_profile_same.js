@@ -580,6 +580,8 @@ function uploadFiles(e) {
             return;
         }
     }
+    var input = document.getElementById('input_image_upload');
+    input.value = null;
     if (files.length != 0) {
         //유재우 : 파일 업로드 버튼 색 및 투명도 변경
         $('#image_upload_btn').css({
