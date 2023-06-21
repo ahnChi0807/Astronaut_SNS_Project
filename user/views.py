@@ -563,9 +563,11 @@ class ChatView(APIView):
 
         # 세션 유저가 팔로우한 정보를 뽑아냄
         user_following = Follow.objects.filter(follower=email_session).values('following')
+        # 다른 유저가 세선유저를 팔로우한 정보를 뽑아냄
+        user_follower = Follow.objects.filter(following=email_session).values('follower')
 
         # 채팅이 할 유저의 목록을 뽑음
-        chat_user = User.objects.filter(email__in=user_following)
+        chat_user = User.objects.filter(Q(email__in=user_following) | Q(email__in=user_follower))
 
         # 내가 해당 유저에게 보낸 채팅과 해당유저가 받은 채팅 객체들 뽑음 (최신순으로 정렬)
         receive_chat = Chat.objects.filter(receive_user=email_session, send_user__in=user_following).order_by('-id')
