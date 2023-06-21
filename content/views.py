@@ -129,7 +129,7 @@ class Main(APIView):
             Follow.objects.filter(follower__in=follower_user_email_list, following=user_session.email).values_list(
                 'follower', flat=True))
 
-        shared_category_nickname_list = User.objects.filter(email__in=following_user_email_list)
+        shared_category_nickname_list = User.objects.filter(email__in=following_user_email_list).exclude(email=feed.email)
 
         # 세션 유저에게 온 알림 유무
         alert_exists = Alert.objects.filter(receive_user=email).exists()

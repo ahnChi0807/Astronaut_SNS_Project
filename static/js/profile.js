@@ -37,6 +37,7 @@ $('#user_follow_btn').click(function (event) {
         method: "POST",
         success: function (data) {
             console.log("성공");
+            location.reload();
         },
         error: function (request, status, error) {
             console.log("에러");

@@ -179,7 +179,7 @@ $(".upload_reply").click(function (event) {
                     },
                     complete: function () {
                         console.log("완료");
-                        location.reload()
+                        location.reload();
                     }
                 });
             })
@@ -243,7 +243,7 @@ $(".upload_reply").click(function (event) {
                     },
                     complete: function () {
                         console.log("완료");
-                        location.replace("/main");
+                        location.reload();
                     }
                 });
             });
@@ -281,7 +281,7 @@ $('.remove_feed').click(function (event) {
         },
         complete: function () {
             console.log("완료");
-            location.reload()
+            location.reload();
         }
     });
 })
@@ -307,7 +307,7 @@ $('.remove_reply').click(function (event) {
         },
         complete: function () {
             console.log("완료");
-            location.reload()
+            location.reload();
         }
     });
 })
@@ -555,7 +555,7 @@ $('.update_replys').click(function (event) {
         },
         complete: function () {
             console.log("완료");
-            location.reload()
+            location.reload();
         }
     });
 });
@@ -795,6 +795,7 @@ follow_recommend_list_all.addEventListener("click", () => {
 // 팔로우 모달창 닫기 버튼 이벤트 처리
 close_follow_modal.addEventListener("click", () => {
     all_follow_recommend_list.style.display = "none";
+    location.reload()
 });
 
 

@@ -352,7 +352,7 @@ $(".modal_upload_reply").click(function (event) {
 
 });
 
-// 모달창 닫기 버튼 이벤트 처리
+// 업로드 모달창 관련 닫기 버튼 이벤트 처리
 $(".modal_close").click(function () {
     // 변경됬던 이미지 업로드를 다시 되돌림
     $('#image_upload_btn').css({
@@ -421,14 +421,6 @@ $(".modal_close").click(function () {
     $('#third_modal').css({
         display: 'none'
     });
-    // 피드 모달 숨김
-    $('#feed_modal').css({
-        display: 'none'
-    });
-    // 팔로우 추천 모달창 가림
-    $('#Recommend_Followers_all').css({
-        display: 'none'
-    });
     // 업로드 이미지등을 안보이게 한것을 보이게 함
     $('.feed_modal_area_upload_img').css({
         "display": "flex"
@@ -446,6 +438,22 @@ $(".modal_close").click(function () {
     $('.feed_modal_feed_image_next').css({
         "display": "none"
     })
+
+});
+
+// 피드 모달창 닫기 버튼 이벤트 처리
+$(".feed_modal_close").click(function () {
+    // 모달창 닫았을 때 본문 스크롤 가능
+    $(document.body).css({
+        overflow: 'visible'
+    });
+
+    // 피드 모달 숨김
+    $('#feed_modal').css({
+        display: 'none'
+    });
+
+    location.reload();
 
 });
 
