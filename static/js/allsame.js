@@ -417,29 +417,6 @@ var open_article3 = function (url) {
             alertModal.style.display = 'flex';
         }
 
-        // 알람 확인시 알람 삭제 이벤트 처리
-        $(".alert_list").click(function (event) {
-            // 특정 알림의 id를 가져옴
-            let alert_id = $(this).attr("id");
-
-            $.ajax({
-                url: "/user/alert",
-                data: {
-                    alert_id: alert_id
-                },
-                method: "POST",
-                success: function (data) {
-                    console.log("성공");
-                },
-                error: function (request, status, error) {
-                    console.log("에러");
-                },
-                complete: function () {
-                    console.log("완료");
-                }
-            });
-        });
-
         // 알람 확인시 해당 게시물로 이동
         $(".feed_modal").click(function () {
             // 클릭한 댓글 더보기가 있는 피드의 feed_id 속성 값을 가져옴.

@@ -1,3 +1,19 @@
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
 // 각각의 버튼을 비활성화 해둔다 -> 활성화 해두면 이상한 값을 입력해도 수정되기 때문
 document.getElementById("update_nikname_btn").disabled = true;
 document.getElementById("update_email_btn").disabled = true;
@@ -253,6 +269,8 @@ $('#update_nikname_btn').click(function () {
     var email = $(this).attr('user_session_email');
     // 닉네임 수정 입력란에 입력된 값을 가져옴
     let nikname = $('#input_nickname').val();
+    // CSRF 토큰 값을 가져옴
+    let csrfmiddlewaretoken = getCookie('csrftoken');
 
     // 서버로 보낼 데이터 json
     $.ajax({
@@ -262,6 +280,9 @@ $('#update_nikname_btn').click(function () {
             nickname: nikname
         },
         method: "POST",
+        headers: {
+            'X-CSRFToken': csrfmiddlewaretoken
+        },
         success: function (data) {
             console.log("성공");
             // data에 데이터가 있을 경우 잘못된 경우 (중복) 사용자에게 에러메시지를 보여줌

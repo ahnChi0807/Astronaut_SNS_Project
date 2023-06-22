@@ -129,7 +129,7 @@ class Main(APIView):
             Follow.objects.filter(follower__in=follower_user_email_list, following=user_session.email).values_list(
                 'follower', flat=True))
 
-        shared_category_nickname_list = User.objects.filter(email__in=following_user_email_list).exclude(email=feed.email)
+        shared_category_nickname_list = User.objects.filter(email__in=following_user_email_list)
 
         # 세션 유저에게 온 알림 유무
         alert_exists = Alert.objects.filter(receive_user=email).exists()
@@ -462,23 +462,23 @@ class SearchFeed(APIView):
 
             # 기본 정렬 ( 단순 키워드가 포함된 )피드 객체들을 뽑음
             if category_option1 is None and category_option2 is None and start_date is None and end_date is None:
-                feed_hashtag_list = Feed.objects.filter(id__in=hashtag_content_lists)
+                feed_hashtag_list = Feed.objects.filter(id__in=hashtag_content_lists).order_by('-id')
                 print("피드 기본 최신순")
             # 카테고리 정렬 ( 단순 키워드와 카테고리가 포함된 )피드 객체들을 뽑음
             elif category_option1 is not None and category_option2 is not None and start_date is not None and end_date is not None:
                 feed_hashtag_list = Feed.objects.filter(id__in=hashtag_content_lists,
                                                         create_at__range=[start_date, end_date],
-                                                        category__in=[category_option1, category_option2])
+                                                        category__in=[category_option1, category_option2]).order_by('-id')
                 print("피드 카테고리 시간 모두 필터링")
             # 날짜 정렬 ( 단순 키워드와 날짜가 포함된 )피드 객체들을 뽑음
             elif start_date is not None and end_date is not None:
                 feed_hashtag_list = Feed.objects.filter(id__in=hashtag_content_lists,
-                                                        create_at__range=[start_date, end_date])
+                                                        create_at__range=[start_date, end_date]).order_by('-id')
                 print("피드 시간 순으로 필터링")
             # 일괄 정렬 ( 단순 키워드와 카테고리 날짜가 포함된 )피드 객체들을 뽑음
             else:
                 feed_hashtag_list = Feed.objects.filter(id__in=hashtag_content_lists,
-                                                        category__in=[category_option1, category_option2])
+                                                        category__in=[category_option1, category_option2]).order_by('-id')
                 print("피드 카테고리로 필터링")
 
             # 피드 객체들을 순회하며 필요한 정보를 추출

@@ -1,6 +1,18 @@
-$.ajaxSetup({
-    headers: { "X-CSRFToken": $('meta[name="csrf-token"]').attr("content") }
-});
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
 
 // 처음엔 아무 값도 입력되지 않았기 때문에 기본 값은 가입 버튼 비활성화
 document.getElementById("access_button").disabled = true;
@@ -190,6 +202,7 @@ $('#access_button').click(function () {
     let name = $('#input_name').val();
     let nickname = $('#input_nickname').val();
     let password = $('#input_password').val();
+    let csrfmiddlewaretoken = getCookie('csrftoken');
 
     // 서버로 보낼 데이터 (Json 형태)
     $.ajax({
@@ -201,6 +214,9 @@ $('#access_button').click(function () {
             name: name
         },
         method: "POST",
+        headers: {
+            'X-CSRFToken': csrfmiddlewaretoken
+        },
         success: function (data) {
             console.log("성공");
             // 서버에서 받은 데이터가 있다면 메시지(중복 이메일, 닉네임) 알람. 없다면 로그인 페이지로 이동.

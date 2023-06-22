@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+=======
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+>>>>>>> 670619ac4e130411c8ab21c159319606c404f679
 $(".movetoprofile").click(function (event) {
     // 이벤트가 발생한 태그의 id를 가져옴 id는 user_nickname 형태
     let user_nickname = event.target.id;
@@ -107,6 +125,7 @@ $(".upload_reply").click(function (event) {
     // 댓글 입력 폼의 아이디를 이용해서 입력 폼의 내용을 가져옴
     let reply_content = $('#' + reply_id).val();
     let feed_user_nickname = event.target.attributes.getNamedItem('feed_user_nickname').value;
+    let csrfmiddlewaretoken = getCookie('csrftoken');
 
     // 댓글의 길이가 0보다 작으면 알림창 뜸
     if (reply_content.length <= 0) {
@@ -123,6 +142,9 @@ $(".upload_reply").click(function (event) {
             feed_user_nickname: feed_user_nickname,
         },
         method: "POST",
+        headers: {
+            'X-CSRFToken': csrfmiddlewaretoken
+        },
         success: function (data) {
             // 비동기식 댓글 업로드를 위한 구현 data에는 댓글을 쓴 유저의 정보가 들어있다
             console.log("성공");

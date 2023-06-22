@@ -1,3 +1,19 @@
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
 // 처음엔 아무 값도 입력되지 않았기 때문에 기본 값은 로그인 버튼 비활성화
 document.getElementById("access_button").disabled = true;
 // 이메일 유효성 확인. {,}는 최소 수와 최대 수를 나타낸다.
@@ -60,6 +76,7 @@ $('#access_button').click(function () {
     // 각각의 입력 폼에 입력된 내용을 가지고 와서 각각의 변수에 저장
     let email = $('#input_email').val();
     let password = $('#input_password').val();
+    let csrfmiddlewaretoken = getCookie('csrftoken');
 
     // 서버로 보낼 (Json 형태)
     $.ajax({
@@ -69,6 +86,9 @@ $('#access_button').click(function () {
             password: password
         },
         method: "POST",
+        headers: {
+            'X-CSRFToken': csrfmiddlewaretoken
+        },
         success: function (data) {
             // 서버로 전달된 데이터를 토대로 서버로 응답 데이터가 있다면 로그인 실패로 보고 아니라면 로그인 성공으로 봄
             console.log("성공");

@@ -570,7 +570,7 @@ class ChatView(APIView):
         chat_user = User.objects.filter(Q(email__in=user_following) | Q(email__in=user_follower))
 
         # 내가 해당 유저에게 보낸 채팅과 해당유저가 받은 채팅 객체들 뽑음 (최신순으로 정렬)
-        receive_chat = Chat.objects.filter(receive_user=email_session, send_user__in=user_following).order_by('-id')
+        receive_chat = Chat.objects.filter(receive_user=email_session).order_by('-id')
 
         # receive_chat에서 중복을 제거하여 발신자(send_user)의 고유한 목록을 저장합니다.
         send_user_set = set(chat.send_user for chat in receive_chat)
@@ -635,6 +635,10 @@ class AlertAll(APIView):
         # 나에게 온 알림을 전부 가져옴
         receive_alert_me = Alert.objects.filter(receive_user=email)
 
+        # 만약 알림의 개수가 13개라면 일괄 삭제
+        if receive_alert_me.count() > 13:
+            receive_alert_me.delete()
+
         # 알림 리스트 생성후 데이터 채움
         alert_list = []
         for alert in receive_alert_me:
@@ -655,21 +659,16 @@ class AlertAll(APIView):
         return render(request, "content/alert.html", context=dict(alert_list=alert_list))
 
     def post(self, request):
-        # 알림을 삭제할 세션유저의 이메일을 가져옴
+        # 알림을 삭제할 세션유저의 이메일을 가져옴 TODO 이거 수정 해야함
         email = request.session.get('email', None)
         # 알림 모두 삭제 메시지 내용
         remove_message = request.data.get('remove_message', None)
         # 삭제할 알림의 id
         alert_id = request.data.get('alert_id', None)
-        print(alert_id)
 
         # 만약 메시지 내용이 모두 삭제이면 해당 유저에게 온 모든 알림을 삭제
         if remove_message == '모두 확인':
             remove_alert = Alert.objects.filter(receive_user=email)
-            remove_alert.delete()
-        # 개별 삭제일 경우 해당 id를 가진 알림만 삭제
-        else:
-            remove_alert = Alert.objects.filter(id=alert_id)
             remove_alert.delete()
 
         return Response(status=200)
