@@ -365,11 +365,14 @@
         <div class="feed_image_text_modal">
             <!-- 이미지 영역 -->
             <div class="img_upload_space">
+                <!-- 이미지 보기 이전 버튼 다음 버튼 영역-->
                 <div class="feed_modal_area_images_btn">
+                    <!-- 이전 버튼-->
                     <div id="feed_modal_feed_image_before_btn"
                          class="feed_modal_feed_image_before material-symbols-outlined img_previous_btn">
                         arrow_back_ios
                     </div>
+                    <!-- 다음 버튼-->
                     <div id="feed_modal_feed_image_next_btn"
                          class="feed_modal_feed_image_next material-symbols-outlined">
                         arrow_forward_ios
@@ -394,14 +397,46 @@
                     </div>
                     <!-- 정유진: 카테고리 선택 영역 -->
                     <div class="second_third_modal_category">
-                        <span class="feed_category_explain">카테고리</span>
-                        <select id="input_feed_category" class="form-control" style="box-shadow: none">
-                            <option value="">선택</option>
-                            <option value="travel">여행</option>
-                            <option value="food">음식</option>
-                            <option value="movie">영화</option>
-                            <option value="book">책</option>
-                        </select>
+                        <div class="modal_category_select_area">
+                            <span class="feed_category_explain">카테고리</span>
+                            <select id="input_feed_category" class="form-control">
+                                <option value="">선택</option>
+                                <option value="food">음식</option>
+                                <option value="daily">일상</option>
+                                <option value="sports">스포츠</option>
+                                <option value="travel">여행</option>
+                                <option value="companion_animal">반려동물</option>
+                            </select>
+                        </div>
+                        <!-- 정유진: 공유카테고리 선택 영역 -->
+                        <div class="dropdown shared_category_area">
+                            <p class="shared_category_approach_suggestion_text">
+                                접근제어
+                            </p>
+                            <a class="shared_category_btn" href="#" role="button" id="dropdownMenuLink"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                공유
+                            </a>
+                            <ul class="dropdown-menu shared_category_select_area"
+                                aria-labelledby="dropdownMenuLink" data-popper-placement="top-start">
+                                {% if shared_category_nickname_list %}
+                                    {% for user in shared_category_nickname_list %}
+                                        <li class="text_line shared_category_select">
+                                            <div>
+                                                <input class="shared_category_checkbox" input type="checkbox"
+                                                       name="shared_category_nickname_list"
+                                                       value="{{ user.nickname }}"/>
+                                            </div>
+                                            <p class="dropdown-item_shared_category shared_category_nickname_select"
+                                               onclick="toggleCheckbox(event)">{{ user.nickname }}</p>
+                                            </input>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <p style="margin: 0 5px; color: #737373">없음</p>
+                                {% endif %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <!-- 공유하기 버튼 -->

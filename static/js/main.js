@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -14,8 +12,6 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
->>>>>>> 670619ac4e130411c8ab21c159319606c404f679
 $(".movetoprofile").click(function (event) {
     // 이벤트가 발생한 태그의 id를 가져옴 id는 user_nickname 형태
     let user_nickname = event.target.id;
