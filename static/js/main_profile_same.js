@@ -587,7 +587,6 @@ function uploadFiles(e) {
             return;
         }
     }
-
     // 파일 업로드 인풋태그 초기화
     var input = document.getElementById('input_image_upload');
     input.value = null;

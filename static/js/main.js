@@ -12,7 +12,6 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
 $(".movetoprofile").click(function (event) {
     // 이벤트가 발생한 태그의 id를 가져옴 id는 user_nickname 형태
     let user_nickname = event.target.id;
@@ -63,53 +62,55 @@ $(".bookmark").click(function (event) {
 
 // 좋아요 심볼 클릭 이벤트
 $(".favorite").click(function (event) {
-    // 좋아요 아이콘 태그의 feed_id 속성 값을 가져옴 ( 피드는 여러개이므로 어떤 피드에 좋아요를 했는지 알아야함 )
-    let feed_id = event.target.attributes.getNamedItem('feed_id').value;
-    // 이벤트가 발생한 좋아요 태그의 id를 가져옴 (id 형태는 like_{{ feed.id }} )
-    let favorite_id = event.target.id;
-    // 해당 태그의 style 속성중 color 값을 가져옴
-    let favorite_color = $('#' + favorite_id).css('color');
-    // 피드의 작성자 닉네임
-    let feed_user_nickname = event.target.attributes.getNamedItem('feed_user_nickname').value;
+    $(".favorite").click(function (event) {
+        // 좋아요 아이콘 태그의 feed_id 속성 값을 가져옴 ( 피드는 여러개이므로 어떤 피드에 좋아요를 했는지 알아야함 )
+        let feed_id = event.target.attributes.getNamedItem('feed_id').value;
+        // 이벤트가 발생한 좋아요 태그의 id를 가져옴 (id 형태는 like_{{ feed.id }} )
+        let favorite_id = event.target.id;
+        // 해당 태그의 style 속성중 color 값을 가져옴
+        let favorite_color = $('#' + favorite_id).css('color');
+        // 피드의 작성자 닉네임
+        let feed_user_nickname = event.target.attributes.getNamedItem('feed_user_nickname').value;
 
-    // 현재 좋아요 상태가 아니면 북마크 상태로 바꿈 -> css를 토글하는 개념
-    if (favorite_color === 'rgb(0, 0, 0)') {
-        $(this).css({"font-variation-settings": "'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 48"});
-        $(this).css({
-            color: 'red',
-        });
-    } else {
-        $(this).css({"font-variation-settings": "'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 48"});
-        $(this).css({
-            color: 'black',
-        });
-    }
-
-    // 좋아요 관련 ajax 호출
-    $.ajax({
-        url: "/content/like",
-        data: {
-            feed_id: feed_id,
-            favorite_color: favorite_color,
-            feed_user_nickname: feed_user_nickname,
-        },
-        method: "POST",
-        success: function (data) {
-            // data에는 사용자가 좋아요를 누르고 테이블에 값이 저장되었으니 그 이후에 수를 계산한 값이 들어있다.
-            console.log("성공");
-            // 좋아요 수를 비동기로 처리
-            var async_like_count = data['async_like_count'];
-            $("#async_like_count_" + feed_id).html(async_like_count + '명');
-        },
-        error: function (request, status, error) {
-            console.log("에러");
-        },
-        complete: function () {
-            console.log("완료");
-
+        // 현재 좋아요 상태가 아니면 북마크 상태로 바꿈 -> css를 토글하는 개념
+        if (favorite_color === 'rgb(0, 0, 0)') {
+            $(this).css({"font-variation-settings": "'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 48"});
+            $(this).css({
+                color: 'red',
+            });
+        } else {
+            $(this).css({"font-variation-settings": "'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 48"});
+            $(this).css({
+                color: 'black',
+            });
         }
+
+        // 좋아요 관련 ajax 호출
+        $.ajax({
+            url: "/content/like",
+            data: {
+                feed_id: feed_id,
+                favorite_color: favorite_color,
+                feed_user_nickname: feed_user_nickname,
+            },
+            method: "POST",
+            success: function (data) {
+                // data에는 사용자가 좋아요를 누르고 테이블에 값이 저장되었으니 그 이후에 수를 계산한 값이 들어있다.
+                console.log("성공");
+                // 좋아요 수를 비동기로 처리
+                var async_like_count = data['async_like_count'];
+                $("#async_like_count_" + feed_id).html(async_like_count + '명');
+            },
+            error: function (request, status, error) {
+                console.log("에러");
+            },
+            complete: function () {
+                console.log("완료");
+
+            }
+        });
     });
-});
+})
 
 // 댓글 게시 버튼 이벤트 처리
 $(".upload_reply").click(function (event) {
