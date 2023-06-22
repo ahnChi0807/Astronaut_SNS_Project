@@ -574,7 +574,14 @@ class SearchFeed(APIView):
 
         # 세션 유저에게 온 채팅 유무
         is_delivered_chat = Chat.objects.filter(receive_user=email, is_read=True).exists()
+        # 정유진: 피드 업로드 및 수정 시 필요한 맞팔되어 있는 유저 리스트
+        follower_user_email_list = list(
+            Follow.objects.filter(follower=email).values_list('following', flat=True))
+        following_user_email_list = list(
+            Follow.objects.filter(follower__in=follower_user_email_list, following=email).values_list(
+                'follower', flat=True))
 
+        shared_category_nickname_list = User.objects.filter(email__in=following_user_email_list)
         # 검색결과를 검색결과 페이지랑 데이터를 사용자에게 반환
         return render(request, "astronaut/search.html",
                       context=dict(user_session=user_session,
@@ -584,7 +591,8 @@ class SearchFeed(APIView):
                                    show_method_like=show_like, show_method_reply=show_reply,
                                    feed_all_count=feed_all_count, category_option1=category_option1,
                                    category_option2=category_option2, alert_exists=alert_exists,
-                                   is_delivered_chat=is_delivered_chat))
+                                   is_delivered_chat=is_delivered_chat,
+                                   shared_category_nickname_list=shared_category_nickname_list,))
 
 
 # 댓글 삭제 클래스
